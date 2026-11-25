@@ -8,15 +8,23 @@ permissions:
   contents: read
 jobs:
   package:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python -m pip install bg3forge==0.2.0
       - run: python tools/check.py
-      - run: python tools/build.py
+      - name: Package with LSLib
+        shell: pwsh
+        run: |
+          $zip = Join-Path $env:RUNNER_TEMP 'ExportTool.zip'
+          Invoke-WebRequest 'https://github.com/Norbyte/lslib/releases/download/v1.20.4/ExportTool-v1.20.4.zip' -OutFile $zip
+          if ((Get-FileHash $zip).Hash -ne '5e02368fb8acafda9b45acba37a3f3bf507fc3d65a083a159abbeab06337190e') { throw 'Unexpected ExportTool digest' }
+          $dir = Join-Path $env:RUNNER_TEMP 'ExportTool'
+          Expand-Archive $zip $dir
+          $exe = Get-ChildItem $dir -Recurse -Filter divine.exe | Select-Object -First 1
+          ./tools/build-lslib.ps1 -Divine $exe.FullName
       - uses: actions/upload-artifact@v4
         with:
           name: TacticianAI
