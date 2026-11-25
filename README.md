@@ -1,20 +1,25 @@
 # BG3 Tactician AI
 
-L’**Anneau du tacticien** donne trois commandes de combat en français et en anglais. **Déléguer mon tour** vise le porteur, y compris un avatar qui joue seul. La commande ne coûte ni action ni action bonus. Son statut confie le reste du tour à l’IA native et expire à la fin du tour ou du combat.
+L’**Anneau du tacticien** donne un seul sort, **Contrôle de l’IA**. Lance-le sur toi ou sur un compagnon à portée (30 m) pour activer son IA de combat. Relance le même sort sur la même cible pour la désactiver. Chaque personnage a son propre réglage. Le sort est gratuit et fonctionne aussi hors combat, sans Script Extender ni MCM.
 
-**Déléguer le tour** permet toujours de choisir un compagnon à 30 m ou moins. Cette délégation dure jusqu’à la fin du combat ou jusqu’à l’utilisation de **Reprendre le contrôle**. Le mod fonctionne sans Script Extender ni MCM.
+Le statut **IA activée** indique qui jouera automatiquement au prochain combat. L’IA garde ce réglage d’un affrontement à l’autre. Entre les combats, tu contrôles ton personnage et peux changer d’avis. Si tu joues seul et que tu confies ton tour à l’IA, tu pourras repasser en manuel dès la sortie du combat.
 
 ## Installer le mod sur Mac
 
-1. Télécharge le [paquet de test 1.0.1.0](downloads/1.0.1.0/TacticianAI_6d136abe-15aa-4127-a699-f3a6b0df2d67.pak?raw=1).
+1. Télécharge le [paquet 1.0.3.0](downloads/1.0.3.0/TacticianAI_6d136abe-15aa-4127-a699-f3a6b0df2d67.pak?raw=1).
 2. Quitte BG3. Dans le Finder, appuie sur ⌘⇧G et ouvre `~/Documents/Larian Studios/Baldur's Gate 3/Mods/`. Copie le paquet dans ce dossier en remplaçant la version précédente. Garde un seul paquet Tactician AI dans ce dossier.
-3. Relance le jeu, coche **Tactician AI** dans les mods installés et charge une copie de ta sauvegarde. Si ton personnage possède déjà l’anneau, garde-le. Au besoin, déséquipe-le puis équipe-le à nouveau pour actualiser les commandes. Pour une première installation, récupère-le dans le coffre du voyageur au camp.
+3. Relance BG3 et coche **Tactician AI** dans les mods installés avant de créer ou de charger ta partie.
+
+## Où trouver l’anneau
+
+- **Nouvelle partie** — Dès que tu contrôles ton personnage sur le Nautiloïde, ouvre son inventaire et équipe l’**Anneau du tacticien**. Le mod en attribue un à chaque avatar présent au démarrage, y compris un personnage d’origine comme Ombrecœur. L’attribution au réveil a été confirmée sur Mac avec la version 1.0.2.0.
+- **Partie en cours** — Garde ton anneau si tu l’as déjà. Au besoin, déséquipe-le puis équipe-le à nouveau pour actualiser le sort dans ta barre de raccourcis. Si tu ne l’as pas encore récupéré, il t’attend dans le coffre du voyageur au camp. Le coffre propose aussi un exemplaire de secours dans les nouvelles parties.
 
 La version [1.0.0.1](downloads/1.0.0.1/TacticianAI_6d136abe-15aa-4127-a699-f3a6b0df2d67.pak?raw=1) a été détectée en jeu sur Mac et l’anneau est apparu dans le coffre.
 
-## Tester un tour solo
+## Vérifier la bascule en jeu
 
-Équipe l’anneau sur ton avatar et entre en combat. Au début de son tour, avec une cible accessible et une action disponible, lance **Déléguer mon tour**. Laisse le jeu dérouler le tour. Vérifie si l’IA agit immédiatement, si le statut disparaît en fin de tour et si tu peux choisir ta première action au tour suivant. La compilation vérifie les données du mod. La prise de contrôle d’un avatar dont le tour a déjà commencé reste à confirmer dans BG3.
+Hors combat, équipe l’anneau et lance **Contrôle de l’IA** sur toi. Le statut **IA activée** doit apparaître, puis disparaître au deuxième lancement. Essaie ensuite sur un compagnon et vérifie que seul son statut change. Pour tester en solo, active l’IA avant le combat, laisse ton personnage jouer puis relance le sort sur toi après le combat. Le sort de la version 1.0.3.0 a été testé en jeu sur Mac.
 
 ## Compiler
 
