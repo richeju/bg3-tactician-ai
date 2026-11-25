@@ -1,0 +1,8 @@
+USING btai_adaptive
+
+// Increase the value of healing as health drops, including when the caster is alone.
+MULTIPLIER_HEAL_SELF_POS 1.00
+MULTIPLIER_HEAL_ALLY_POS 1.05
+MAX_HEAL_MULTIPLIER 0.65
+MAX_HEAL_SELF_MULTIPLIER 0.60
+MULTIPLIER_TARGET_ALLY_DOWNED 1.25

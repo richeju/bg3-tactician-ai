@@ -1,0 +1,131 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+// Spell ID, base range in metres, minimum slot level, action resource.
+DB_BTAI_RescueSpell("Target_HealingWord",18.0,1,"BonusActionPoint");
+DB_BTAI_RescueSpell("Target_CureWounds",1.5,1,"ActionPoint");
+DB_BTAI_RescueSpell("Target_Heal",18.0,6,"ActionPoint");
+
+// Available slot pools and levels in the unmodified player campaign.
+DB_BTAI_RescueSlot("SpellSlot",1);
+DB_BTAI_RescueSlot("SpellSlot",2);
+DB_BTAI_RescueSlot("SpellSlot",3);
+DB_BTAI_RescueSlot("SpellSlot",4);
+DB_BTAI_RescueSlot("SpellSlot",5);
+DB_BTAI_RescueSlot("SpellSlot",6);
+DB_BTAI_RescueSlot("WarlockSpellSlot",1);
+DB_BTAI_RescueSlot("WarlockSpellSlot",2);
+DB_BTAI_RescueSlot("WarlockSpellSlot",3);
+DB_BTAI_RescueSlot("WarlockSpellSlot",4);
+DB_BTAI_RescueSlot("WarlockSpellSlot",5);
+DB_BTAI_RescueSlot("ShadowSpellSlot",3);
+
+KBSECTION
+PROC
+PROC_BTAI_RefreshTactics((CHARACTER)_Actor)
+AND
+HasActiveStatus(_Actor,"BTAI_RESCUE_TACTICS",0)
+AND
+QRY_BTAI_RescueNeeded(_Actor)
+THEN
+ApplyStatus(_Actor,"BTAI_RESCUE_TACTICS",-1.0,1,_Actor);
+
+PROC
+PROC_BTAI_RefreshTactics((CHARACTER)_Actor)
+AND
+HasActiveStatus(_Actor,"BTAI_RESCUE_TACTICS",1)
+AND
+NOT QRY_BTAI_RescueNeeded(_Actor)
+THEN
+RemoveStatus(_Actor,"BTAI_RESCUE_TACTICS");
+
+// A conscious caster can rescue themselves when at or below one third HP.
+// Using whole HP avoids rounding a displayed percentage at the threshold.
+QRY
+QRY_BTAI_RescueNeeded((CHARACTER)_Actor)
+AND
+IsInCombat(_Actor,1)
+AND
+GetHitpoints(_Actor,_HP)
+AND
+_HP > 0
+AND
+GetMaxHitpoints(_Actor,_MaxHP)
+AND
+IntegerProduct(_HP,3,_TripleHP)
+AND
+_TripleHP <= _MaxHP
+AND
+QRY_BTAI_HealableTarget(_Actor)
+AND
+QRY_BTAI_ReadyHeal(_Actor,0.0)
+THEN
+DB_NOOP(1);
+
+// The patient's ordinary DOWNED status excludes temporary scripted death wards.
+QRY
+QRY_BTAI_RescueNeeded((CHARACTER)_Actor)
+AND
+CombatGetGuidFor(_Actor,_Combat)
+AND
+DB_PartyMembers(_Patient)
+AND
+_Patient != _Actor
+AND
+HasActiveStatus(_Patient,"DOWNED",1)
+AND
+CombatGetGuidFor(_Patient,_Combat)
+AND
+IsAlly(_Actor,_Patient,1)
+AND
+QRY_BTAI_HealableTarget(_Patient)
+AND
+GetDistanceTo(_Actor,_Patient,_Distance)
+AND
+QRY_BTAI_ReadyHeal(_Actor,_Distance)
+THEN
+DB_NOOP(1);
+
+QRY
+QRY_BTAI_HealableTarget((CHARACTER)_Patient)
+AND
+IsDead(_Patient,0)
+AND
+IsTagged(_Patient,(TAG)UNDEAD_33c625aa-6982-4c27-904f-e47029a9b140,0)
+AND
+IsTagged(_Patient,(TAG)CONSTRUCT_22e5209c-eaeb-40dc-b6ef-a371794110c2,0)
+THEN
+DB_NOOP(1);
+
+// Use the scorer for line of sight, movement, cast restrictions and final choice.
+// Reading current resources leaves payment and consumption to the normal cast.
+QRY
+QRY_BTAI_ReadyHeal((CHARACTER)_Actor,(REAL)_Distance)
+AND
+IsDead(_Actor,0)
+AND
+HasActiveStatusWithGroup(_Actor,"SG_Incapacitated",0)
+AND
+DB_BTAI_RescueSpell(_Spell,_Reach,_MinimumLevel,_Action)
+AND
+_Distance <= _Reach
+AND
+IsSpellActive(_Actor,_Spell,1)
+AND
+GetActionResourceValuePersonal(_Actor,_Action,0,_Actions)
+AND
+_Actions >= 1.0
+AND
+DB_BTAI_RescueSlot(_Pool,_Level)
+AND
+_Level >= _MinimumLevel
+AND
+GetActionResourceValuePersonal(_Actor,_Pool,_Level,_Slots)
+AND
+_Slots >= 1.0
+THEN
+DB_NOOP(1);
+
+EXITSECTION
+ENDEXITSECTION
+ParentTargetEdge "Start"

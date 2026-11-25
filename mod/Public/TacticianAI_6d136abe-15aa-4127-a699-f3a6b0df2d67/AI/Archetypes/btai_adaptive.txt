@@ -1,0 +1,5 @@
+USING base
+
+// Reward reliable hits and breaking enemy concentration with the actions available to this character.
+- MODIFIER_HIT_CHANCE_STUPIDITY 0.15
++ MODIFIER_CONCENTRATION_REMOVE_TARGET 0.30

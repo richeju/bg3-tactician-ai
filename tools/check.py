@@ -22,6 +22,44 @@ def stat_entries(text):
     }
 
 
+def check_tactics(effects, goals):
+    archetypes = PUBLIC / "AI/Archetypes"
+    lifecycle = (goals / "BTAI_AdaptiveCombat.txt").read_text()
+    assert 'StatusApplied((CHARACTER)_Actor,"BTAI_CONTROLLED",_,_)' in lifecycle
+    assert 'TurnStarted((CHARACTER)_Actor)\nAND\nHasActiveStatus(_Actor,"BTAI_CONTROLLED",1)' in lifecycle
+    cleanup = lifecycle.split('StatusRemoved((CHARACTER)_Actor,"BTAI_CONTROLLED",_,_)')[1]
+    profiles = {
+        "BTAI_CONTROLLED": ("btai_adaptive", "base", 1),
+        "BTAI_RANGED_TACTICS": ("btai_ranged", "btai_adaptive", 2),
+        "BTAI_RESCUE_TACTICS": ("btai_rescue", "btai_adaptive", 3),
+    }
+    for status, (name, parent, priority) in profiles.items():
+        assert effects[status]["Boosts"] == f"AiArchetypeOverride({name},{priority})"
+        assert effects[status]["RemoveEvents"] == "OnCombatEnded"
+        tuning = (archetypes / f"{name}.txt").read_text().splitlines()
+        assert tuning[0] == f"USING {parent}"
+        if status != "BTAI_CONTROLLED":
+            assert f'RemoveStatus(_Actor,"{status}");' in cleanup
+    assert not (archetypes / "base.txt").exists()
+    for goal_name in ("BTAI_RangedTactics", "BTAI_RescueTactics"):
+        goal = (goals / f"{goal_name}.txt").read_text()
+        assert "PROC_BTAI_RefreshTactics((CHARACTER)_Actor)" in goal
+        assert 'ParentTargetEdge "Start"' in goal
+        # Story chooses scoring preferences. The combat engine owns spell use and costs.
+        assert "UseSpell(" not in goal and "RequestSetBaseArchetype(" not in goal
+
+    rescue = (goals / "BTAI_RescueTactics.txt").read_text()
+    spells = re.findall(r'DB_BTAI_RescueSpell\("([^"]+)",([\d.]+),(\d+),"([^"]+)"\);', rescue)
+    assert set(spells) == {
+        ("Target_HealingWord", "18.0", "1", "BonusActionPoint"),
+        ("Target_CureWounds", "1.5", "1", "ActionPoint"),
+        ("Target_Heal", "18.0", "6", "ActionPoint"),
+    }
+    assert "IsSpellActive(_Actor,_Spell,1)" in rescue
+    assert "GetActionResourceValuePersonal(_Actor,_Action,0,_Actions)" in rescue
+    assert "GetActionResourceValuePersonal(_Actor,_Pool,_Level,_Slots)" in rescue
+
+
 def check():
     # A missing reference can silently leave the camp chest or spellbook empty.
     meta = ET.parse(META_PATH).find(".//node[@id='ModuleInfo']")
@@ -81,6 +119,7 @@ def check():
     assert {"LoseControl", "LoseControlFriendly"} <= set(control["StatusPropertyFlags"].split(";"))
     assert control["RemoveEvents"] == "OnCombatEnded"
     assert effects["BTAI_SELF_CONTROLLED"]["RemoveEvents"] == "OnTurn;OnCombatEnded"
+    check_tactics(effects, goal.parent)
 
     translated_text = armor + spell_text + statuses + passives + ring_file.read_text()
     referenced = set(re.findall(r'h[0-9a-fg]{36}', translated_text))
@@ -89,7 +128,7 @@ def check():
         handles = [node.attrib["contentuid"] for node in entries]
         assert len(handles) == len(set(handles)) and set(handles) == referenced, locale
         assert all(node.text and node.text.strip() for node in entries), locale
-    print("Verified ring grants, single AI toggle, status transitions and FR/EN localisation.")
+    print("Verified ring grants, AI toggle, adaptive tactics and FR/EN localisation.")
 
 
 if __name__ == "__main__":

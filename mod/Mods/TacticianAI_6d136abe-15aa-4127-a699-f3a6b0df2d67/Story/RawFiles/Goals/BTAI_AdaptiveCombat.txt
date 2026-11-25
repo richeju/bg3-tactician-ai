@@ -1,0 +1,25 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+KBSECTION
+IF
+StatusApplied((CHARACTER)_Actor,"BTAI_CONTROLLED",_,_)
+THEN
+PROC_BTAI_RefreshTactics(_Actor);
+
+IF
+TurnStarted((CHARACTER)_Actor)
+AND
+HasActiveStatus(_Actor,"BTAI_CONTROLLED",1)
+THEN
+PROC_BTAI_RefreshTactics(_Actor);
+
+IF
+StatusRemoved((CHARACTER)_Actor,"BTAI_CONTROLLED",_,_)
+THEN
+RemoveStatus(_Actor,"BTAI_RANGED_TACTICS");
+RemoveStatus(_Actor,"BTAI_RESCUE_TACTICS");
+
+EXITSECTION
+ENDEXITSECTION
+ParentTargetEdge "Start"
