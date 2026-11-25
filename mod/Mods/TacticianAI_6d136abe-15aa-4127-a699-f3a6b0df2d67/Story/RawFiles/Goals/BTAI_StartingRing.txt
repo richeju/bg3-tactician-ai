@@ -1,0 +1,17 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+KBSECTION
+PROC
+PROC_Tutorial_Start()
+AND
+DB_Avatars(_Avatar)
+AND
+NOT DB_BTAI_StartingRingGranted(_Avatar)
+THEN
+TemplateAddTo((ITEMROOT)BTAI_CommandRing_85e8e533-6776-459b-84cc-020bbe9e7f84,_Avatar,1,0);
+DB_BTAI_StartingRingGranted(_Avatar);
+
+EXITSECTION
+ENDEXITSECTION
+ParentTargetEdge "Start"

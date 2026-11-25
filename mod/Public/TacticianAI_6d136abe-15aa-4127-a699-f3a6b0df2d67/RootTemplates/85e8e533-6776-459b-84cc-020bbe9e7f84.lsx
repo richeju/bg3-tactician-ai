@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<save>
+  <version major="4" minor="7" revision="1" build="3"/>
+  <region id="Templates">
+    <node id="Templates">
+      <children>
+        <node id="GameObjects">
+          <attribute id="MapKey" type="FixedString" value="85e8e533-6776-459b-84cc-020bbe9e7f84"/>
+          <attribute id="Name" type="LSString" value="BTAI_CommandRing"/>
+          <attribute id="Type" type="FixedString" value="item"/>
+          <attribute id="ParentTemplateId" type="FixedString" value="efe2746c-10d4-4082-9133-d05b6f7fa291"/>
+          <attribute id="Stats" type="FixedString" value="BTAI_CommandRing"/>
+          <attribute id="DisplayName" type="TranslatedString" handle="hfd643988g3b1eg5e21gabb7g2e15782ecbd5" version="1"/>
+          <attribute id="Description" type="TranslatedString" handle="h4a200f87g7e0fg545cg9a09g956e6371b28b" version="1"/>
+        </node>
+      </children>
+    </node>
+  </region>
+</save>

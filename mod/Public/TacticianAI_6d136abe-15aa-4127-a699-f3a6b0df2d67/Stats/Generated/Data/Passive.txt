@@ -1,0 +1,6 @@
+new entry "BTAI_ControlAtCombatStart"
+type "PassiveData"
+data "Properties" "IsHidden"
+data "StatsFunctorContext" "OnCombatStarted"
+data "Conditions" "not HasStatus('BTAI_CONTROLLED')"
+data "StatsFunctors" "ApplyStatus(BTAI_CONTROLLED,100,-1)"

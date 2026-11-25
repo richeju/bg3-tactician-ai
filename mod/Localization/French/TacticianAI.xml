@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<contentList>
+  <content contentuid="hb7a566f8g12bbg54a7g9799gdf824a9d1f09" version="1">Contrôle de l’IA</content>
+  <content contentuid="h44dda104gc75cg5072g9e3ag26deae35fb4c" version="1">Activez l’IA de combat pour vous ou un membre du groupe. Relancez ce sort sur la même cible pour la désactiver. Vous gardez la main hors combat.</content>
+  <content contentuid="h47d3d59eg62deg5694gaf5aga41f11ff8a1e" version="1">Autonomie en combat</content>
+  <content contentuid="h850bc83dgd6bbg5792g8936gf474fc184ce4" version="1">L’IA choisit les actions de ce personnage pendant le combat.</content>
+  <content contentuid="hfd643988g3b1eg5e21gabb7g2e15782ecbd5" version="1">Anneau du tacticien</content>
+  <content contentuid="h4a200f87g7e0fg545cg9a09g956e6371b28b" version="1">Équipez cet anneau pour activer ou désactiver l’IA de combat sur vous ou sur un membre du groupe.</content>
+  <content contentuid="h6a45d5fega38ag501dga645ga6907dbf8b0c" version="1">Tour délégué</content>
+  <content contentuid="hcbbad83dgc1b6g5827gb43fg48af4fd39567" version="1">L’IA dirige ce personnage jusqu’à la fin de son tour.</content>
+  <content contentuid="h191f51b4ge276g4f80g8cd9g97b2c0e83cba" version="1">IA activée</content>
+  <content contentuid="h35bdc3d4g9057g493bg86f8gc9ab6c504b35" version="1">L’IA joue les combats de ce personnage. Le porteur de l’anneau peut désactiver cet effet avec Contrôle de l’IA.</content>
+</contentList>
