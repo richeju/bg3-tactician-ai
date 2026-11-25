@@ -1,0 +1,33 @@
+name: Build BG3 mod
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/checkout@v4
+        with:
+          repository: lz4/lz4
+          ref: aa4647fad575d01a874aaaadcdbe8e6a40e072f5
+          path: .build/lz4
+          persist-credentials: false
+      - run: make -C .build/lz4/lib
+      - run: python -m pip install bg3forge==0.2.0
+      - run: python tools/check.py
+      - run: python tools/build.py
+        env:
+          BG3_LZ4_LIBRARY: ${{ github.workspace }}/.build/lz4/lib/liblz4.so
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TacticianAI
+          path: dist/TacticianAI.pak
+          if-no-files-found: error

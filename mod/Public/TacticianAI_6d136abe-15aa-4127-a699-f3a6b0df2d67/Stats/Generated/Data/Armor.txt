@@ -1,0 +1,5 @@
+new entry "BTAI_CommandRing"
+type "Armor"
+using "ARM_Ring_E_Silver_A"
+data "RootTemplate" "85e8e533-6776-459b-84cc-020bbe9e7f84"
+data "Boosts" "UnlockSpell(Target_BTAI_Delegate);UnlockSpell(Target_BTAI_Recall);UnlockSpell(Shout_BTAI_DelegateSelf)"
