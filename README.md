@@ -6,7 +6,7 @@ Le statut **IA activée** indique qui jouera automatiquement au prochain combat.
 
 ## Installer le mod sur Mac
 
-1. Télécharge le [paquet de test 1.0.3.0](downloads/1.0.3.0/TacticianAI_6d136abe-15aa-4127-a699-f3a6b0df2d67.pak?raw=1).
+1. Télécharge le [paquet 1.0.3.0](downloads/1.0.3.0/TacticianAI_6d136abe-15aa-4127-a699-f3a6b0df2d67.pak?raw=1).
 2. Quitte BG3. Dans le Finder, appuie sur ⌘⇧G et ouvre `~/Documents/Larian Studios/Baldur's Gate 3/Mods/`. Copie le paquet dans ce dossier en remplaçant la version précédente. Garde un seul paquet Tactician AI dans ce dossier.
 3. Relance BG3 et coche **Tactician AI** dans les mods installés avant de créer ou de charger ta partie.
 
@@ -19,7 +19,7 @@ La version [1.0.0.1](downloads/1.0.0.1/TacticianAI_6d136abe-15aa-4127-a699-f3a6b
 
 ## Vérifier la bascule en jeu
 
-Hors combat, équipe l’anneau et lance **Contrôle de l’IA** sur toi. Le statut **IA activée** doit apparaître, puis disparaître au deuxième lancement. Essaie ensuite sur un compagnon et vérifie que seul son statut change. Pour tester en solo, active l’IA avant le combat, laisse ton personnage jouer puis relance le sort sur toi après le combat. La bascule de cette version reste à confirmer dans BG3.
+Hors combat, équipe l’anneau et lance **Contrôle de l’IA** sur toi. Le statut **IA activée** doit apparaître, puis disparaître au deuxième lancement. Essaie ensuite sur un compagnon et vérifie que seul son statut change. Pour tester en solo, active l’IA avant le combat, laisse ton personnage jouer puis relance le sort sur toi après le combat. Le sort de la version 1.0.3.0 a été testé en jeu sur Mac.
 
 ## Compiler
 
