@@ -32,6 +32,16 @@ def check():
     ring_id = attribute(ring, "MapKey")
     reward = ET.parse(PUBLIC / "OneTimeRewards/OneTimeRewards.lsx").find(".//node[@id='OneTimeReward']")
     assert attribute(reward, "ItemTemplateId") == ring_id
+    goal = META_PATH.parent / "Story/RawFiles/Goals/BTAI_StartingRing.txt"
+    rule = [line.strip() for line in goal.read_text().splitlines() if line.strip()]
+    marker = "DB_BTAI_StartingRingGranted(_Avatar)"
+    grant = f'TemplateAddTo((ITEMROOT){attribute(ring, "Name")}_{ring_id},_Avatar,1,0);'
+    # Use the same post-character-creation hook and parent goal as vanilla GLO_Alchemy.
+    assert rule[rule.index("KBSECTION") + 1:rule.index("EXITSECTION")] == [
+        "PROC", "PROC_Tutorial_Start()", "AND", "DB_Avatars(_Avatar)",
+        "AND", f"NOT {marker}", "THEN", grant, f"{marker};",
+    ]
+    assert rule[-1] == 'ParentTargetEdge "Start"'
     armor = (STATS / "Armor.txt").read_text()
     assert f'new entry "{attribute(ring, "Stats")}"' in armor
     assert f'data "RootTemplate" "{ring_id}"' in armor
@@ -67,7 +77,7 @@ def check():
         handles = [node.attrib["contentuid"] for node in entries]
         assert len(handles) == len(set(handles)) and set(handles) == referenced, locale
         assert all(node.text and node.text.strip() for node in entries), locale
-    print("Verified camp reward, companion and solo commands, status expiry and FR/EN localisation.")
+    print("Verified starting inventory, camp reward, companion and solo commands, status expiry and FR/EN localisation.")
 
 
 if __name__ == "__main__":

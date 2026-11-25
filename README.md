@@ -6,9 +6,14 @@ L’**Anneau du tacticien** donne trois commandes de combat en français et en a
 
 ## Installer le mod sur Mac
 
-1. Télécharge le [paquet de test 1.0.1.0](downloads/1.0.1.0/TacticianAI_6d136abe-15aa-4127-a699-f3a6b0df2d67.pak?raw=1).
+1. Télécharge le [paquet de test 1.0.2.0](downloads/1.0.2.0/TacticianAI_6d136abe-15aa-4127-a699-f3a6b0df2d67.pak?raw=1).
 2. Quitte BG3. Dans le Finder, appuie sur ⌘⇧G et ouvre `~/Documents/Larian Studios/Baldur's Gate 3/Mods/`. Copie le paquet dans ce dossier en remplaçant la version précédente. Garde un seul paquet Tactician AI dans ce dossier.
-3. Relance le jeu, coche **Tactician AI** dans les mods installés et charge une copie de ta sauvegarde. Si ton personnage possède déjà l’anneau, garde-le. Au besoin, déséquipe-le puis équipe-le à nouveau pour actualiser les commandes. Pour une première installation, récupère-le dans le coffre du voyageur au camp.
+3. Relance BG3 et coche **Tactician AI** dans les mods installés avant de créer ou de charger ta partie.
+
+## Où trouver l’anneau
+
+- **Nouvelle partie** — Dès que tu contrôles ton personnage sur le Nautiloïde, ouvre son inventaire et équipe l’**Anneau du tacticien**. Le mod en attribue un à chaque avatar présent au démarrage, y compris un personnage d’origine comme Ombrecœur. Tu peux ainsi essayer **Déléguer mon tour** dès le premier combat. L’attribution sur le Nautiloïde reste à confirmer en jeu sur Mac.
+- **Partie en cours** — Garde ton anneau si tu l’as déjà. Au besoin, déséquipe-le puis équipe-le à nouveau pour actualiser ses commandes. Si tu ne l’as pas encore récupéré, il t’attend dans le coffre du voyageur au camp. Le coffre propose aussi un exemplaire de secours dans les nouvelles parties.
 
 La version [1.0.0.1](downloads/1.0.0.1/TacticianAI_6d136abe-15aa-4127-a699-f3a6b0df2d67.pak?raw=1) a été détectée en jeu sur Mac et l’anneau est apparu dans le coffre.
 
