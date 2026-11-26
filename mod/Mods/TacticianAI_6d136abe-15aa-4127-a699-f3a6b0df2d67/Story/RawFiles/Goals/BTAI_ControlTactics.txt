@@ -1,0 +1,78 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+// Spell, applied status and group, minimum spell slot level, base range in metres.
+DB_BTAI_ControlSpell("Target_HoldPerson","HOLD_PERSON","SG_Paralyzed",2,18.0);
+DB_BTAI_ControlSpell("Target_HoldMonster","HOLD_MONSTER","SG_Paralyzed",5,18.0);
+DB_BTAI_ControlSpell("Target_Blindness","BLINDNESS","SG_Blinded",2,18.0);
+KBSECTION
+PROC
+PROC_BTAI_RefreshTactics((CHARACTER)_Actor)
+AND
+HasActiveStatus(_Actor,"BTAI_CONTROL_TACTICS",0)
+AND
+QRY_BTAI_ControlOpportunity(_Actor)
+THEN
+ApplyStatus(_Actor,"BTAI_CONTROL_TACTICS",-1.0,1,_Actor);
+
+PROC
+PROC_BTAI_RefreshTactics((CHARACTER)_Actor)
+AND
+HasActiveStatus(_Actor,"BTAI_CONTROL_TACTICS",1)
+AND
+NOT QRY_BTAI_ControlOpportunity(_Actor)
+THEN
+RemoveStatus(_Actor,"BTAI_CONTROL_TACTICS");
+
+QRY
+QRY_BTAI_ControlOpportunity((CHARACTER)_Actor)
+AND
+IsInCombat(_Actor,1)
+AND
+IsDead(_Actor,0)
+AND
+HasActiveStatusWithGroup(_Actor,"SG_Incapacitated",0)
+AND
+HasActiveStatus(_Actor,"DOWNED",0)
+AND
+HasActiveStatus(_Actor,"SILENCED",0)
+AND
+GetActionResourceValuePersonal(_Actor,"ActionPoint",0,_Actions)
+AND
+_Actions >= 1.0
+AND
+DB_BTAI_ControlSpell(_Spell,_Effect,_Group,_MinimumLevel,_Reach)
+AND
+DB_BTAI_PreparedCapability(_Actor,_Spell,"control")
+AND
+IsSpellActive(_Actor,_Spell,1)
+AND
+QRY_BTAI_HasSpellSlot(_Actor,_MinimumLevel)
+AND
+CanCastSpellOnEnemyInSameCombat(_Actor,_Spell,_Target)
+AND
+_Target != NULL_00000000-0000-0000-0000-000000000000
+AND
+IsDead(_Target,0)
+AND
+HasActiveStatus(_Target,"DOWNED",0)
+AND
+HasActiveStatusWithGroup(_Target,"SG_Incapacitated",0)
+AND
+HasActiveStatusWithGroup(_Target,_Group,0)
+AND
+IsImmuneToStatus(_Target,_Effect,_Actor,0)
+AND
+IsImmuneToStatusGroup(_Target,_Group,_Actor,0)
+AND
+GetDistanceTo(_Actor,_Target,_Distance)
+AND
+_Distance <= _Reach
+AND
+HasLineOfSight(_Actor,_Target,1)
+THEN
+DB_NOOP(1);
+
+EXITSECTION
+ENDEXITSECTION
+ParentTargetEdge "Start"

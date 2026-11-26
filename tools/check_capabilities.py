@@ -1,5 +1,6 @@
 """Regression checks for the shipped capability catalogue and its Osiris consumers."""
 from collections import defaultdict
+import operator
 from pathlib import Path
 import re
 
@@ -145,6 +146,14 @@ class SpellbookFixture:
     def matching_states(self, initial, conditions):
         states = [initial]
         for line in conditions:
+            comparison = re.fullmatch(r"(\S+) (<=|>=|!=|==|<|>) (\S+)", line)
+            if comparison:
+                left, symbol, right = comparison.groups()
+                compare = {"<": operator.lt, "<=": operator.le, ">": operator.gt,
+                           ">=": operator.ge, "==": operator.eq, "!=": operator.ne}[symbol]
+                states = [s for s in states
+                          if compare(s.get(left, word(left)), s.get(right, word(right)))]
+                continue
             negated, condition, terms = parse_call(line)
             next_states = []
             for state in states:

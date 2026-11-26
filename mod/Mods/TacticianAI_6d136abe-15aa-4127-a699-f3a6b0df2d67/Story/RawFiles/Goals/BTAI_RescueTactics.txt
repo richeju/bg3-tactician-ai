@@ -118,6 +118,14 @@ GetActionResourceValuePersonal(_Actor,_Action,0,_Actions)
 AND
 _Actions >= 1.0
 AND
+QRY_BTAI_HasSpellSlot(_Actor,_MinimumLevel)
+THEN
+DB_NOOP(1);
+
+// Keep the existing slot table for ongoing games. Both tactics read the same pools.
+QRY
+QRY_BTAI_HasSpellSlot((CHARACTER)_Actor,(INTEGER)_MinimumLevel)
+AND
 DB_BTAI_RescueSlot(_Pool,_Level)
 AND
 _Level >= _MinimumLevel

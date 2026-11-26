@@ -4,7 +4,7 @@ L’**Anneau du tacticien** donne un seul sort, **Contrôle de l’IA**. Lance-l
 
 Le statut **IA activée** indique qui jouera automatiquement au prochain combat. L’IA garde ce réglage d’un affrontement à l’autre. Entre les combats, tu contrôles ton personnage et peux changer d’avis. Si tu joues seul et que tu confies ton tour à l’IA, tu pourras repasser en manuel dès la sortie du combat.
 
-## Capacités du personnage dans la version de test 1.1.1.0
+## Capacités du personnage dans la version de test 1.1.2.0
 
 Quand tu actives l’IA, le mod interroge BG3 sur le personnage ciblé. Son catalogue couvre **419 sorts et actions** du jeu de base. Il enregistre ceux que le personnage possède et, séparément, ceux que le moteur signale comme préparés. Chaque entrée a une catégorie principale parmi dégâts, contrôle, soins, soutien et utilité. Le mod vérifie aussi **385 passifs** de classe, de sous-classe ou de don et relève le score des armes principales de mêlée et à distance équipées.
 
@@ -18,13 +18,14 @@ Le mod réévalue chaque personnage délégué à l’activation du contrôle et
 
 - **Armes.** Le mod compare le score que BG3 donne à chaque arme équipée pour ce personnage. Si l’arme à distance est maîtrisée et dépasse de plus de 10 % le score de l’arme de mêlée, l’IA privilégie un peu plus la distance et la hauteur. Un arc seul peut aussi convenir. Un spécialiste du combat à mains nues peut garder sa position habituelle.
 - **Soins.** Si le personnage a au plus un tiers de ses PV ou qu’un allié du même combat est à terre à portée, le mod recherche trois sorts préparés, *Mot de guérison*, *Soin des blessures* et *Guérison*. Il vérifie aussi l’action ou l’action bonus et l’emplacement nécessaires. Le soin prend alors plus de poids dans la décision. Un personnage qui connaît un soin peut continuer à se battre à l’arc tout le reste du temps.
+- **Contrôle.** Avec *Immobilisation d’humanoïde*, *Immobilisation de monstre* ou *Cécité* préparé, le mod interroge BG3 sur un ennemi que le sort peut cibler dans le même combat. Il vérifie l’action, l’emplacement, la ligne de vue et la portée de base de 18 m. Il écarte une cible à terre, neutralisée, déjà affectée par le même type d’effet ou immunisée. Si la cible proposée convient, BG3 accorde plus de poids aux actions de contrôle et au coût de rompre la concentration du lanceur. Si le moteur propose une cible qui échoue à ces vérifications, le mod passe au sort candidat suivant.
 - **Autres actions.** Les chances de toucher et l’interruption de la concentration ennemie pèsent davantage dans le choix du moteur. Les sorts offensifs, buffs, déplacements et attaques restent à sa disposition. L’anneau conserve son unique commande.
 
-Les priorités personnalisées de cette version portent sur le placement à distance et les soins d’urgence. Le journal de combat donne l’action effectivement choisie par BG3. La validation de cette version en partie sur Mac reste à faire.
+Si plusieurs situations coïncident, le profil de soins d’urgence a priorité sur le contrôle, puis vient le placement à distance. Le journal de combat donne l’action effectivement choisie par BG3. Les règles sont couvertes par des simulations automatisées. Le comportement de la version 1.1.2.0 reste à confirmer en partie sur Mac.
 
 ## Installer le mod sur Mac
 
-1. Télécharge le [paquet de test 1.1.1.0](downloads/1.1.1.0/TacticianAI_6d136abe-15aa-4127-a699-f3a6b0df2d67.pak?raw=1). La [version stable 1.0.3.0](https://github.com/richeju/bg3-tactician-ai/releases/tag/v1.0.3.0) est aussi disponible.
+1. Télécharge le [paquet de test 1.1.2.0](downloads/1.1.2.0/TacticianAI_6d136abe-15aa-4127-a699-f3a6b0df2d67.pak?raw=1). La [version stable 1.0.3.0](https://github.com/richeju/bg3-tactician-ai/releases/tag/v1.0.3.0) est aussi disponible.
 2. Quitte BG3. Dans le Finder, appuie sur ⌘⇧G et ouvre `~/Documents/Larian Studios/Baldur's Gate 3/Mods/`. Copie le paquet dans ce dossier en remplaçant la version précédente. Garde un seul paquet Tactician AI dans ce dossier.
 3. Relance BG3 et coche **Tactician AI** dans les mods installés avant de créer ou de charger ta partie.
 
@@ -41,8 +42,8 @@ Hors combat, équipe l’anneau et lance **Contrôle de l’IA** sur toi. Le sta
 
 ## Vérifier ce que le mod a détecté
 
-1. Hors combat, choisis un personnage qui peut préparer *Mot de guérison* et *Immobilisation de personne*, par exemple Ombrecœur en clerc de niveau 3. Prépare uniquement le premier des deux, équipe un arc, active l’IA et crée une sauvegarde A.
-2. Remplace *Mot de guérison* par *Immobilisation de personne* dans les sorts préparés et change d’arme à distance. Désactive puis réactive l’IA et crée une sauvegarde B.
+1. Hors combat, choisis un personnage qui peut préparer *Mot de guérison* et *Immobilisation d’humanoïde*, par exemple Ombrecœur en clerc de niveau 3. Prépare uniquement le premier des deux, équipe un arc, active l’IA et crée une sauvegarde A.
+2. Remplace *Mot de guérison* par *Immobilisation d’humanoïde* dans les sorts préparés et change d’arme à distance. Désactive puis réactive l’IA et crée une sauvegarde B.
 3. Pour lire les deux relevés, ouvre un terminal à la racine du dépôt. L’inspecteur ci-dessous est facultatif et lit les fichiers `.lsv` en lecture seule. Sur Mac, les sauvegardes se trouvent habituellement dans `~/Documents/Larian Studios/Baldur's Gate 3/PlayerProfiles/Public/Savegames/Story/`.
 
 Avec Python 3.11 ou ultérieur, remplace les deux chemins par ceux des sauvegardes.

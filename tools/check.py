@@ -31,7 +31,8 @@ def check_tactics(effects, goals):
     profiles = {
         "BTAI_CONTROLLED": ("btai_adaptive", "base", 1),
         "BTAI_RANGED_TACTICS": ("btai_ranged", "btai_adaptive", 2),
-        "BTAI_RESCUE_TACTICS": ("btai_rescue", "btai_adaptive", 3),
+        "BTAI_CONTROL_TACTICS": ("btai_control", "btai_adaptive", 3),
+        "BTAI_RESCUE_TACTICS": ("btai_rescue", "btai_adaptive", 4),
     }
     for status, (name, parent, priority) in profiles.items():
         assert effects[status]["Boosts"] == f"AiArchetypeOverride({name},{priority})"
@@ -41,7 +42,11 @@ def check_tactics(effects, goals):
         if status != "BTAI_CONTROLLED":
             assert f'RemoveStatus(_Actor,"{status}");' in cleanup
     assert not (archetypes / "base.txt").exists()
-    for goal_name in ("BTAI_RangedTactics", "BTAI_RescueTactics"):
+    control_profile = (archetypes / "btai_control.txt").read_text()
+    for key in ("MULTIPLIER_CONTROL_ENEMY_POS", "MODIFIER_CONCENTRATION_REMOVE_SELF"):
+        adjustment = re.search(rf"^\+ {key} ([\d.]+)$", control_profile, re.M)
+        assert adjustment and float(adjustment[1]) > 0, key
+    for goal_name in ("BTAI_RangedTactics", "BTAI_RescueTactics", "BTAI_ControlTactics"):
         goal = (goals / f"{goal_name}.txt").read_text()
         assert "PROC_BTAI_RefreshTactics((CHARACTER)_Actor)" in goal
         assert 'ParentTargetEdge "Start"' in goal
@@ -134,6 +139,8 @@ def check():
 
 if __name__ == "__main__":
     from check_capabilities import check_capabilities
+    from check_control import check_control
 
     check()
     check_capabilities()
+    check_control()

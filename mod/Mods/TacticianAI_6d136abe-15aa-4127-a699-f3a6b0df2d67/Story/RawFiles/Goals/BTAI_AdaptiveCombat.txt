@@ -19,6 +19,7 @@ IF
 StatusRemoved((CHARACTER)_Actor,"BTAI_CONTROLLED",_,_)
 THEN
 RemoveStatus(_Actor,"BTAI_RANGED_TACTICS");
+RemoveStatus(_Actor,"BTAI_CONTROL_TACTICS");
 RemoveStatus(_Actor,"BTAI_RESCUE_TACTICS");
 
 EXITSECTION
