@@ -1,0 +1,23 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+KBSECTION
+PROC
+PROC_BTAI_ScanPassives((CHARACTER)_Owner)
+AND
+DB_BTAI_PassiveCandidate(_Passive)
+AND
+HasPassive(_Owner,_Passive,1)
+THEN
+DB_BTAI_KnownPassive(_Owner,_Passive);
+
+PROC
+PROC_BTAI_ClearPassives((CHARACTER)_Owner)
+AND
+DB_BTAI_KnownPassive(_Owner,_Passive)
+THEN
+NOT DB_BTAI_KnownPassive(_Owner,_Passive);
+
+EXITSECTION
+ENDEXITSECTION
+ParentTargetEdge "Start"

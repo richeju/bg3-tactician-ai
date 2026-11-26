@@ -1,0 +1,5 @@
+USING btai_adaptive
+
+// Value control of enemies and the cost of replacing the caster's concentration.
++ MULTIPLIER_CONTROL_ENEMY_POS 0.20
++ MODIFIER_CONCENTRATION_REMOVE_SELF 2.00

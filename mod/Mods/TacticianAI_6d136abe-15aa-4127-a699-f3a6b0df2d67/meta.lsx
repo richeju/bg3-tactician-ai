@@ -21,7 +21,7 @@
                     <attribute id="Author" type="LSString" value="richeju" />
                     <attribute id="CharacterCreationLevelName" type="FixedString" value="" />
                     <attribute id="Description" type="LSString" value="Toggle combat AI for yourself or a party member with the command ring." />
-                    <attribute id="FileSize" type="uint64" value="6111" />
+                    <attribute id="FileSize" type="uint64" value="22697" />
                     <attribute id="Folder" type="LSString" value="TacticianAI_6d136abe-15aa-4127-a699-f3a6b0df2d67" />
                     <attribute id="LobbyLevelName" type="FixedString" value="" />
                     <attribute id="MD5" type="LSString" value="" />
@@ -32,7 +32,7 @@
                     <attribute id="PublishHandle" type="uint64" value="0" />
                     <attribute id="StartupLevelName" type="FixedString" value="" />
                     <attribute id="UUID" type="FixedString" value="6d136abe-15aa-4127-a699-f3a6b0df2d67" />
-                    <attribute id="Version64" type="int64" value="36028803461414912" />
+                    <attribute id="Version64" type="int64" value="36169538802286592" />
                     <children>
                         <node id="PublishVersion">
                             <attribute id="Version64" type="int64" value="144255927719326504" />
