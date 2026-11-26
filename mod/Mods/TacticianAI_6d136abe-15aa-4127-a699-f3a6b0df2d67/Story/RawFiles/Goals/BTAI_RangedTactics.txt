@@ -1,7 +1,32 @@
 Version 1
 SubGoalCombiner SGC_AND
 INITSECTION
+DB_BTAI_WeaponSlot("Melee Main Weapon");
+DB_BTAI_WeaponSlot("Ranged Main Weapon");
 KBSECTION
+// Record each scorable main hand for comparison when inspecting a saved loadout.
+PROC
+PROC_BTAI_ReadWeaponScores((CHARACTER)_Actor)
+AND
+DB_BTAI_WeaponSlot(_Slot)
+AND
+GetEquippedItem(_Actor,_Slot,_Item)
+AND
+IsWeapon(_Item,1)
+AND
+GetStatString(_Item,_Stats)
+AND
+GetWeaponScoreForCharacter(_Item,_Actor,_Score)
+THEN
+DB_BTAI_WeaponScore(_Actor,_Slot,_Stats,_Score);
+
+PROC
+PROC_BTAI_ClearWeaponScores((CHARACTER)_Actor)
+AND
+DB_BTAI_WeaponScore(_Actor,_Slot,_Stats,_Score)
+THEN
+NOT DB_BTAI_WeaponScore(_Actor,_Slot,_Stats,_Score);
+
 // Compare native scores when both main-hand slots contain a weapon.
 QRY
 QRY_BTAI_RangedBeatsMelee((CHARACTER)_Actor,(REAL)_RangedScore)

@@ -108,6 +108,8 @@ HasActiveStatusWithGroup(_Actor,"SG_Incapacitated",0)
 AND
 DB_BTAI_RescueSpell(_Spell,_Reach,_MinimumLevel,_Action)
 AND
+DB_BTAI_PreparedCapability(_Actor,_Spell,"healing")
+AND
 _Distance <= _Reach
 AND
 IsSpellActive(_Actor,_Spell,1)

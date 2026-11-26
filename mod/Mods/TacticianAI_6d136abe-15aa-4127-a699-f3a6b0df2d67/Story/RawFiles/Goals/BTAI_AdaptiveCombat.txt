@@ -5,6 +5,7 @@ KBSECTION
 IF
 StatusApplied((CHARACTER)_Actor,"BTAI_CONTROLLED",_,_)
 THEN
+PROC_BTAI_ScanCapabilities(_Actor);
 PROC_BTAI_RefreshTactics(_Actor);
 
 IF

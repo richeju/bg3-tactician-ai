@@ -55,6 +55,7 @@ def check_tactics(effects, goals):
         ("Target_CureWounds", "1.5", "1", "ActionPoint"),
         ("Target_Heal", "18.0", "6", "ActionPoint"),
     }
+    assert 'DB_BTAI_PreparedCapability(_Actor,_Spell,"healing")' in rescue
     assert "IsSpellActive(_Actor,_Spell,1)" in rescue
     assert "GetActionResourceValuePersonal(_Actor,_Action,0,_Actions)" in rescue
     assert "GetActionResourceValuePersonal(_Actor,_Pool,_Level,_Slots)" in rescue
@@ -132,4 +133,7 @@ def check():
 
 
 if __name__ == "__main__":
+    from check_capabilities import check_capabilities
+
     check()
+    check_capabilities()
